@@ -12,7 +12,7 @@ print("Dependencies installed.")
 import wget
 import urllib.request
 
-def checkConnection(self):
+def checkConnection():
     try:
         urllib.request.urlopen("https://github.com") #Python 3.x
         return True
