@@ -65,13 +65,15 @@ class Menu:
             self.display("Error. Internet connection failed. Please try again later.")
             return
         dir = os.getcwd()
-        os.remove("Update.py")
+        if os.path.exists(dir+"/Update.py"):
+            os.remove(dir+"/"+file)
         print("Downloading update engine...")
         try:
-            wget.download("https://raw.githubusercontent.com/dguis/TextAdventure/main/Update.py")
+            wget.download("https://raw.githubusercontent.com/dguis/TextAdventure/master/Update.py",bar=None)
         except:
             print("Error downloading upload engine. PLease try again later.")
             return
+        print("Update engine downloaded succesfully. Update engine starting...")
         os.system(f"python {dir}/Update.py")
         quit()
 
