@@ -10,9 +10,26 @@ Update file
 
 """
 
+import os
+import wget
+
 class Update:
     def __init__(self):
+        print("Update engine started.")
         print("Initializing game update...")
+        files = [".env","Database.py","Main.py","Menu.py"]
+
+        dir = os.getcwd()
+        for file in files:
+            print(f"Removing old version of '{file}'")
+            if os.path.exists(dir+"/"+file):
+                os.remove(dir+"/"+file)
+            print(f"Downloading updated version of '{file}'")
+            try:
+                wget.download("https://raw.githubusercontent.com/dguis/TextAdventure/master/" + file, bar=None)
+            except:
+                print(f"Error downloading file '{file}''. PLease try again later.")
+                return
 
 def main():
     myUpdate = Update()
