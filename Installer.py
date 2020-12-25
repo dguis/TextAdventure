@@ -3,7 +3,7 @@ os.system("python -m pip install wget")
 import wget
 print("Downloading dependencies...")
 try:
-    wget.download("https://raw.githubusercontent.com/dguis/TextAdventure/master/Requirements.txt",bar=None)
+    wget.download("https://raw.githubusercontent.com/dguis/TextAdventure/master/requirements.txt",bar=None)
 except:
     print("Error. Failed to resolve dependency file. Please try again later.")
     quit()
