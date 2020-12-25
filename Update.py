@@ -21,7 +21,7 @@ class Update:
 
         dir = os.getcwd()
         for file in files:
-            print(f"Removing old version of '{file}'")
+            print(f"Removing old version of '{file}' (if in existence)")
             if os.path.exists(dir+"/"+file):
                 os.remove(dir+"/"+file)
             print(f"Downloading updated version of '{file}'")
