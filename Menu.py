@@ -85,7 +85,7 @@ class Menu:
             return False
 
     def display(self, text, end="\n"):
-        for character in text:
+        for character in tex    t:
             print(character,end="",flush=True) 
             time.sleep(0.2/len(text))
         print("",end=end)
