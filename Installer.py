@@ -1,5 +1,5 @@
 import os
-os.system("python -m pip install wget")
+os.system("python -m pip install wget -q")
 import wget
 print("Downloading dependencies...")
 try:
@@ -7,7 +7,8 @@ try:
 except:
     print("Error. Failed to resolve dependency file. Please try again later.")
     quit()
-os.system("python -m pip install -r requirements.txt")
+os.system("python -m pip install -r requirements.txt -q")
+print("Dependencies installed.")
 import wget
 import urllib.request
 
