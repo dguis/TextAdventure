@@ -66,7 +66,7 @@ class Menu:
             return
         dir = os.getcwd()
         if os.path.exists(dir+"/Update.py"):
-            os.remove(dir+"/"+file)
+            os.remove(dir+"/Update.py")
         print("Downloading update engine...")
         try:
             wget.download("https://raw.githubusercontent.com/dguis/TextAdventure/master/Update.py",bar=None)
