@@ -15,7 +15,6 @@ import os
 import urllib.request
 import wget
 
-
 class Menu:
     def __init__(self):
         self.display("▶  Welcome to TextAdventure! ◀")
@@ -85,7 +84,7 @@ class Menu:
             return False
 
     def display(self, text, end="\n"):
-        for character in tex    t:
+        for character in text:
             print(character,end="",flush=True) 
             time.sleep(0.2/len(text))
         print("",end=end)
