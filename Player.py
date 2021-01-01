@@ -9,13 +9,39 @@ Player file
 :python 3.9.0
 
 """
+from datetime import datetime
 
 class Player:
     """
     Stores information about a player
     """
     def __init__(self):
-        pass
+        """
+        User Information:
+        Logged in : boollean
+        If logged in, user id : int or None
+
+        """
+        self.choices = {}
+        self.idiocy = {"typing":0,"literacy":0,"intelligence":0,"life skills":0,"direction following":0,"last idiotic event":None, "general":0}
+
+    def updateIdiocy(self,type,amount,event=True):
+        self.idiocy[type] += amount
+        self.idiocy["general"] += amount
+        if self.idiocy[type] < 0:
+            self.idiocy[type] = 0
+
+        if self.idiocy["general"] < 0:
+            self.idiocy["general"] = 0
+
+        if event: self.idiocy["last idiotic event"] = datetime.now()
+
+    def getIdiocy(self,category):
+        delta = None
+        if self.idiocy["last idiotic event"]:
+            deltaobject = datetime.now() - self.idiocy["last idiotic event"]
+            delta = deltaobject.total_seconds()
+        return (self.idiocy[category],delta)
 
 def main():
     myPlayer = Player()
