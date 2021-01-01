@@ -11,10 +11,12 @@ Player file
 """
 from datetime import datetime
 
+
 class Player:
     """
     Stores information about a player
     """
+
     def __init__(self):
         """
         User Information:
@@ -23,9 +25,10 @@ class Player:
 
         """
         self.choices = {}
-        self.idiocy = {"typing":0,"literacy":0,"intelligence":0,"life skills":0,"direction following":0,"last idiotic event":None, "general":0}
+        self.idiocy = {"typing": 0, "literacy": 0, "intelligence": 0, "life skills": 0,
+                       "direction following": 0, "last idiotic event": None, "general": 0}
 
-    def updateIdiocy(self,type,amount,event=True):
+    def updateIdiocy(self, type, amount, event=True):
         self.idiocy[type] += amount
         self.idiocy["general"] += amount
         if self.idiocy[type] < 0:
@@ -34,17 +37,26 @@ class Player:
         if self.idiocy["general"] < 0:
             self.idiocy["general"] = 0
 
-        if event: self.idiocy["last idiotic event"] = datetime.now()
+        if event:
+            self.idiocy["last idiotic event"] = datetime.now()
 
-    def getIdiocy(self,category):
+    def createLevel(self, name):
+        self.choices[name] = {}
+
+    def setKey(self, level, name, value):
+        self.choices[level][name] = value
+
+    def getIdiocy(self, category):
         delta = None
         if self.idiocy["last idiotic event"]:
             deltaobject = datetime.now() - self.idiocy["last idiotic event"]
             delta = deltaobject.total_seconds()
-        return (self.idiocy[category],delta)
+        return (self.idiocy[category], delta)
+
 
 def main():
     myPlayer = Player()
+
 
 if __name__ == "__main__":
     main()

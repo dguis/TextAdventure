@@ -15,23 +15,31 @@ import os
 import urllib.request
 import wget
 from Interface import display, getInput
+from Game import Game
+from Player import Player
 
 
 class Menu:
     def __init__(self):
-        display("▶  Welcome to TextAdventure! ◀")
-        display("Please enter a command to get started...")
+        self.player = Player()
+        self.seed = 0
+        print("\t\t\t\t╔═════════════╗")
+        print("\t\t\t\t║  ＶＩＤＡＳ ║")
+        print("\t\t\t\t╚═════════════╝")
+
+        display(
+            "Please enter a command, or type help to see a list of available commands...")
         self.commands = {
-            "help":[self.help,"Help","Lists available commands"],
-            "start":[self.start,"Start","Starts the game"],
-            "quit":[self.quit,"Quit","Quits the game"],
-            "login":[self.login,"Login (Not implemented)","Login to preexisting account"],
-            "signup":[self.signup,"Signup (Not implemented)","Signup for a TextAdventure account"],
-            "settings":[self.settings,"Settings (not implemented)","View game settings menu"],
-            "update":[self.update,"Update","Update the game (internet connection required)"]
+            "help": [self.help, "Help", "Lists available commands"],
+            "start": [self.start, "Start", "Starts the game"],
+            "quit": [self.quit, "Quit", "Quits the game"],
+            "login": [self.login, "Login (Not implemented)", "Login to preexisting account"],
+            "signup": [self.signup, "Signup (Not implemented)", "Signup for a TextAdventure account"],
+            "settings": [self.settings, "Settings (not implemented)", "View game settings menu"],
+            "update": [self.update, "Update", "Update the game (internet connection required)"]
         }
         while True:
-            cmd = getInput("▷")
+            cmd = getInput(self.player, self.commands.keys(), seed=self.seed)
             self.procCommand(cmd)
 
     def procCommand(self, cmd):
@@ -42,11 +50,11 @@ class Menu:
 
     def help(self):
         display("Currently available commands:")
-        for command,command_name,command_desc in self.commands.values():
+        for command, command_name, command_desc in self.commands.values():
             display(f"   ► {command_name} - {command_desc}")
-    
+
     def start(self):
-        display("Imagine a game already being made...what a thought!")
+        Game(self.player, self.seed)
 
     def quit(self):
         display("Thanks for playing!")
@@ -57,7 +65,7 @@ class Menu:
 
     def signup(self):
         display("Sorry, the account feature is still in progress!")
-    
+
     def settings(self):
         pass
 
@@ -70,7 +78,8 @@ class Menu:
             os.remove(dir+"/Update.py")
         print("Downloading update engine...")
         try:
-            wget.download("https://raw.githubusercontent.com/dguis/TextAdventure/master/Update.py",bar=None)
+            wget.download(
+                "https://raw.githubusercontent.com/dguis/TextAdventure/master/Update.py", bar=None)
         except:
             print("Error downloading upload engine. PLease try again later.")
             return
@@ -80,13 +89,15 @@ class Menu:
 
     def checkConnection(self):
         try:
-            urllib.request.urlopen("https://github.com") #Python 3.x
+            urllib.request.urlopen("https://github.com")  # Python 3.x
             return True
         except:
             return False
 
+
 def main():
     myMenu = Menu()
+
 
 if __name__ == "__main__":
     main()

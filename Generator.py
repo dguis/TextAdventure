@@ -20,8 +20,9 @@ class Generator:
         random.seed(seed)
         print(random.random())
     
-    def getRandomnumber(self):
+    def random(self):
         return random.random()
+
 
 def main():
     myGenerator = Generator(1)
