@@ -12,22 +12,23 @@ Game file
 
 from Tutorial import Tutorial
 from Player import Player
-from random import randint
-
+from random import randint, Random
+from Ground1 import Ground1
 
 class Game:
     """
     Main game class
     """
 
-    def __init__(self, pl, seed):
-        Tutorial(pl, seed)
+    def __init__(self, pl, r):
+        Tutorial(pl, r)
+        Ground1(pl,r)
 
 
 def main():
     seed = 0  # randint(5615646546546,8789465498498496549849684)
     pl = Player()
-    myGame = Game(pl, seed)
+    myGame = Game(pl, Random(seed))
 
 
 if __name__ == "__main__":

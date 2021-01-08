@@ -1,8 +1,8 @@
 """
-Ground 0: The tutorial
+Ground 1: Into the Jungle
 
-Tutorial file
-(Tutorial.py)
+Level1 file
+(Tutorial1.py)
 
 :author Dallin Guisti
 :version 1.0 - 30 Dec 2020
@@ -27,7 +27,7 @@ class Wait(Exception):
 class GetUp(Exception):
     pass
 
-class Tutorial(Level):
+class Ground1(Level):
     """
     Ground 0: The tutorial
     """
@@ -54,7 +54,7 @@ class Tutorial(Level):
         ending = "normal"
         for optionCount in range(totalOptions):
             try:
-                self.options(insidePlane, "Tutorial", "insidePlane")
+                self.options(insidePlane)
             except Wait:
                 break
             except GetUp:
@@ -101,7 +101,7 @@ class Tutorial(Level):
         raise Wait
 def main():
     pl = Player()
-    myTutorial = Tutorial(pl, Random(0))
+    myTutorial = Ground1(pl, Random(0))
 
 
 if __name__ == "__main__":

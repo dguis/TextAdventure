@@ -12,6 +12,9 @@ Player file
 from datetime import datetime
 
 
+class ItemNotFound(Exception):
+    pass
+
 class Player:
     """
     Stores information about a player
@@ -27,6 +30,7 @@ class Player:
         self.choices = {}
         self.idiocy = {"typing": 0, "literacy": 0, "intelligence": 0, "life skills": 0,
                        "direction following": 0, "last idiotic event": None, "general": 0}
+        self.inventory = {}
 
     def updateIdiocy(self, type, amount, event=True):
         self.idiocy[type] += amount
@@ -40,11 +44,39 @@ class Player:
         if event:
             self.idiocy["last idiotic event"] = datetime.now()
 
+    def gainItem(self,item):
+        if item in self.inventory:
+            self.inventory[item] += 1
+        else:
+            self.inventory[item] = 1
+
+    def expendItem(self,item):
+        try:
+            self.inventory[item] -= 1
+        except KeyError:
+            raise ItemNotFound
+
+    def checkForItem(self,item):
+        if item in self.inventory:
+            return True
+        return False
+
+    def useItem(self, item, expend=False):
+        if item in self.inventory:
+            item.do(self)
+            if expend: self.expendItem(item)
+        else:
+            raise ItemNotFound
+
+
     def createLevel(self, name):
         self.choices[name] = {}
 
     def setKey(self, level, name, value):
-        self.choices[level][name] = value
+        if self.choices[level][name]:
+            self.choices[level][name].append(value)
+        else:
+            self.choices[level][name] = [value]
 
     def getIdiocy(self, category):
         delta = None

@@ -23,11 +23,11 @@ class Level:
     def execute(self, command, commands):
         exec("self." + commands[command].__name__ + "(commands)")
 
-    def options(self, options):
+    def options(self, options, level, choicename):
         for option in options.keys():
             display(f"► {option} ||", duration=0.035)
-        inputText = getInput(self.player, list(options.keys()), seed=self.seed)
-        self.player.setKey("Tutorial", "insidePlane", inputText)
+        inputText = getInput(self.player, list(options.keys()), r=self.r)
+        self.player.setKey(level, choicename, inputText)
         self.execute(inputText, options)
 
 

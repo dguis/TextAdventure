@@ -31,12 +31,11 @@ def display(text, end="\n", duration=0.05, waittime=0.1, delta=0.01):
         elif character == ">" and text[index-1] != "\\":
             span -= delta
         else:
-            print(character, end="", flush=True)
             time.sleep(span)
+            print(character, end="", flush=True)
     print("", end=end)
 
-
-def displayError(player=None, mistake=None, kind=False, seed=None):
+def displayError(player=None, mistake=None, kind=False, r=None):
     if player and mistake:
         if mistake == "typing":
             secondspassed = player.getIdiocy("typing")[1]
@@ -67,7 +66,7 @@ def displayError(player=None, mistake=None, kind=False, seed=None):
                     "Man, |you are kinda bad at this. ||Try entering something valid this time.",
                     "Your inputs have consistently been invalid. ||Are you <<<trying>>> to get this wrong?",
                     "Can't you just choose a valid input? ||There's a list of valid options, |yet you've managed to ignore all of them.",
-                    "Come <<on>>. ||It's not that hard to pick one of the commands listed. ||Just do it already.",
+                    "Come <<<<<<<<on<>. ||It's not that hard to pick one of the commands listed. ||Just do it already.",
                     "Did you see that list of available commands? ||Try typing one of those instead of <this> nonsense.",
                     "Really? <How> many <<<times>>> do I need to say it? |Just choose a valid input already!",
                     "Seriously, |I'm disappointed. ||How hard is it to type something you can already see?",
@@ -87,34 +86,34 @@ def displayError(player=None, mistake=None, kind=False, seed=None):
                     "I've had enough of this <<nonsense>>. ||I didn't make this program for you to just input whatever you want. ||Just pick an option already.",
                     "<<<<<<<<<<<<<<<<<<<<STOP",
                     "<<<<<Just stop already.",
-                    "<<Goodbye."
+                    "<<<<<<Goodbye."
                 ]
-        if seed:
-            r = Random(seed)
+        if r:
             optionPicked = r.choice(options)
         else:
             optionPicked = choice(options)
 
         display(optionPicked + " ||", duration=0.035)
-        if optionPicked == "<<Goodbye.":
+        if optionPicked == "<<<<<<Goodbye.":
             quit()
         return
 
     display("The input you have written is invalid. ||Please try again. ||")
 
 
-def getInput(player, valid, kind=False, seed=None):
+def getInput(player, valid, kind=False, r=None):
     while True:
         display("▷ ", end="")
         start = input("")
-        if start.lower() in [y.lower() for y in valid]:
-            return start
+        loweredValid = [y.lower() for y in valid]
+        if start.lower() in loweredValid:
+            return valid[loweredValid.index(start)]
         else:
             try:
                 if int(start) <= len(valid) and int(start) > 0:
                     return valid[int(start)-1]
             except:
                 pass
-        displayError(player=player, mistake="typing", kind=kind, seed=seed)
+        displayError(player=player, mistake="typing", kind=kind, r=r)
         if player:
             player.updateIdiocy("typing", 1)

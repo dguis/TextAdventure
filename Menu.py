@@ -17,12 +17,14 @@ import wget
 from Interface import display, getInput
 from Game import Game
 from Player import Player
+from random import Random
 
 
 class Menu:
     def __init__(self):
         self.player = Player()
         self.seed = 0
+        self.r = Random(self.seed)
         print("\t\t\t\t╔═════════════╗")
         print("\t\t\t\t║  ＶＩＤＡＳ ║")
         print("\t\t\t\t╚═════════════╝")
@@ -39,7 +41,7 @@ class Menu:
             "update": [self.update, "Update", "Update the game (internet connection required)"]
         }
         while True:
-            cmd = getInput(self.player, self.commands.keys(), seed=self.seed)
+            cmd = getInput(self.player, self.commands.keys(), r=self.r)
             self.procCommand(cmd)
 
     def procCommand(self, cmd):
@@ -51,10 +53,10 @@ class Menu:
     def help(self):
         display("Currently available commands:")
         for command, command_name, command_desc in self.commands.values():
-            display(f"   ► {command_name} - {command_desc}")
+            display(f"   ► {command_name} - {command_desc}",duration=0.03)
 
     def start(self):
-        Game(self.player, self.seed)
+        Game(self.player, self.r)
 
     def quit(self):
         display("Thanks for playing!")
